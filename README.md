@@ -4,8 +4,8 @@
 |  **#** | **Código** | **Apellidos, Nombre** | **% Trabajo** |
 | :---: | :---: | :---: | :---: |
 |  1 | 201800000 | Vilchez Aguirre Osman Rafael | 33.3% |
-|  2 | 201810711 | Mosquera Pumaricra, Raúl Vide | 33.3% |
-|  1 | 201810010 | Lazo Pampa, David | 33.3% |
+|  2 | 201810711 | Mosquera Pumaricra, Raúl Vides | 33.3% |
+|  1 | 201810010 | Lazo Pampa, David Alejandro | 33.3% |
 
 
 
