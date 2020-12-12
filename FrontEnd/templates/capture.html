@@ -1,0 +1,17 @@
+{% extends "layout.html"%}
+
+{% block content %}
+
+<center>
+	<div align='center'>
+		<h1 class="display-3">Sonrie</h1>
+	</div>
+		<p id="errorTxt"></p>
+        <div>
+            <video id="theVideo" controls autoplay></video>
+            <canvas id="theCanvas"></canvas>
+        </div>
+        <button id="btnCapture"class="btn btn-dark">Capturar</button>
+        <button id="btnDownloadImage"class="btn btn-success">Download</button>
+</center>
+{% endblock %}

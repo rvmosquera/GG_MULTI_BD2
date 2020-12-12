@@ -1,0 +1,27 @@
+{% extends "layout.html"%}
+{% block content %}
+
+<div align='center'>
+    <h3 class="display-4">Resultados de la consulta</h3>
+</div>
+<div class="card">
+    <img class="card-img" src="{{ url_for('static', filename='img/gato.png') }}" alt="...">
+    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
+        <h5>#1-KNN</h5><h5>Gatito miau</h5>
+    </div>
+</div>
+<div class="card">
+    <img class="card-img" src="{{ url_for('static', filename='img/gato.png') }}" alt="...">
+    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
+        <h5>#2-KNN</h5><h5>Gatito miau</h5>
+    </div>
+</div>
+<div class="card">
+    <img class="card-img" src="{{ url_for('static', filename='img/gato.png') }}" alt="...">
+    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
+        <h5>#2-KNN</h5><h5>Gatito miau</h5>
+    </div>
+</div>
+
+
+{% endblock %}

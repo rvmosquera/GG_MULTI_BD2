@@ -1,0 +1,46 @@
+{% extends "layout.html"%}
+
+{% block content %}
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="{{ url_for('static', filename='img/face-detection.png') }}" alt="IMG">
+            </div>
+
+            <form class="login100-form validate-form" enctype="multipart/form-data" >
+                <span class="login100-form-title">
+                   Reconocimiento Facial
+                </span>
+               
+                <div class="wrap-input100 validate-input" >  
+                    <input accept=".pdf,.jpg,.png" type="file" name="file" value="file" id="file" hidden="hidden" required >
+                    <label class="input100" for="file" id="label"></label>
+                    <span  class="symbol-input100 fa fa-camera" id="file_text">No se ha elegido ninguna imagen</span>
+                </div>
+                
+                <div class="wrap-input100 validate-input">
+                    <input class="input100" type="number" name="kvalue" id="kvalue" placeholder="Indicar valor K">
+                    <span class="symbol-input100">
+                        <i class="fa fa-list-ol" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <input type="submit" value="Cargar" id="btn" class="btn btn-primary" >
+                </div>
+                
+                <div class="text-center p-t-12">
+                    <span class="txt1">
+                    </span>
+                    <a class="txt2" href="{{url_for('capture')}}">Tomar foto</a>
+                </div>
+
+                <div class="text-center p-t-136">
+                    <a class="txt2" href="#"></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

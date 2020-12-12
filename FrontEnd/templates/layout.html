@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyect_3</title>
+    <!--CSS Boostrap-->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!--CUSTUMER CSS-->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/main.css')}}">
+    
+</head>
+<body>
+  <!--Navegador-->
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0c8ce7;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Proyecto_3</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{url_for('home')}}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('integrantes')}}">Integrantes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('result')}}">Resultado</a>
+          </li>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+
+    <!--Contenido-->
+    <div class="container p-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!--Pie de Pagina-->
+    <!-- Footer -->
+    <footer class="page-footer font-small mdb-color darken-3 pt-4">
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:<a href="#"> Proyecto 3</a></div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+  <script src="{{url_for('static',filename='css/script.js')}}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script>
+    const file = document.getElementById("file");
+    const textFile = document.getElementById("file_text");
+    file.addEventListener("change", () => {
+        if (file.value) {
+            textFile.innerHTML = file.value
+            .match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+        }
+    })
+    
+</script>
+
+</body>
+</html>
