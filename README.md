@@ -25,7 +25,7 @@ Una parte del proyecto es comparar estas dos estructuras a nivel temporal, entre
 
 
 #### KNN-Sequential
-
+En esta implementación se hace uso de un heap para mantener ordenada crecientemente las distancias, las distancias se proveen por face_recognition con face_distance, el cual devuelve un arreglo con las distancias a cada imagen del dataset.
 ```
 def KNN_Seq(k,to_search):  
   result = PriorityQueue()
@@ -56,7 +56,7 @@ def KNN_Seq(k,to_search):
 
 
 ```
-En esta implementación se hace uso de un heap para mantener ordenada crecientemente las distancias, las distancias se proveen por face_recognition con face_distance, el cual devuelve un arreglo con las distancias a cada imagen del dataset.
+
 El costo del algoritmo es de:
 
 ***O(t.n+ d.n + nlog(k))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar.
@@ -78,3 +78,63 @@ La siguiente tabla muestra los tiempos para realizar las búsquedas por similitu
 |    3200   |                    |                    |
 |    6400   |                    |                    |
 |   12800   |                    |                    |
+
+
+
+
+
+
+
+
+
+### Búsqueda por radio e implementación 
+De forma análoga a la implementación kNN pero con menor complejidad, codificamos, hallamos las distancias, y si estas son menores al valor de r, serán retornadas.
+```
+import face_recognition as fr
+import numpy as np
+import os
+
+path = '/content/drive/My Drive/DB2/Project3/Data/Test_1'
+pics_list = os.listdir(path)
+
+def encode(name):
+  img = fr.load_image_file(path + '/' + name)
+  return fr.face_encodings(img)[0]
+
+
+
+def search_r(r,to_search):  
+  query = encode(to_search)
+  cantidad = 0
+  conocidas = []
+  names_in_order = []
+  for file_name in pics_list:
+    cantidad = cantidad +1
+    print("Processing: ", file_name)
+    img_fname = path + '/' + file_name
+    img = fr.load_image_file(img_fname)
+    aux = fr.face_encodings(img)[0]
+    names_in_order.append(file_name)
+    conocidas.append(aux)
+
+  distances = fr.face_distance(conocidas,query)
+  
+  res = []
+  for i in range(cantidad):
+    if distances[i]<=r:
+      res.append((distances[i],names_in_order[i]))
+
+  return res
+
+name_img = "foto1.jpg"
+print(KNN_Seq(1,name_img))
+
+```
+***O(t.n + d.n + n)***, t = tiempo de la codificación d = tiempo de la obtención de las distancias.
+
+
+
+
+
+
+
