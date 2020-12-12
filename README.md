@@ -135,7 +135,7 @@ name_img = "foto1.jpg"
 print(search_r(1,name_img))
 
 ```
-***O(t.n + d.n + n)***, t = tiempo de la codificación d = tiempo de la obtención de las distancias.
+***O(t.l.n + d.l.n + n)***, t = tiempo de la codificación d = tiempo de la obtención de las distancias l = cantidad de caras en la imagen.
 
 
 
