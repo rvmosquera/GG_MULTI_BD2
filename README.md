@@ -127,7 +127,7 @@ def search_r(r,to_search):
   return res
 
 name_img = "foto1.jpg"
-print(KNN_Seq(1,name_img))
+print(search_r(1,name_img))
 
 ```
 ***O(t.n + d.n + n)***, t = tiempo de la codificación d = tiempo de la obtención de las distancias.
