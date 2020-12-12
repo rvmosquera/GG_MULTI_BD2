@@ -59,7 +59,7 @@ def KNN_Seq(k,to_search):
 En esta implementación se hace uso de un heap para mantener ordenada crecientemente las distancias, las distancias se proveen por face_recognition con face_distance, el cual devuelve un arreglo con las distancias a cada imagen del dataset.
 El costo del algoritmo es de:
 
-***O(t.n+ d.n + nlog(k)), t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar ***
+***O(t.n+ d.n + nlog(k))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar.
 
 #### Comparativas
 La siguiente tabla muestra los tiempos para realizar las búsquedas por similitud, anteriormente descrita.
