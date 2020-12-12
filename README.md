@@ -10,7 +10,7 @@ Es una librería que está disponible en python, la cuál permite el manejo e id
 Esta librería será usada para la obtención de los vectores característicos así como para la función de distancia que permite obtener esta a travéz de la [EUCLIDEAN DIST](https://es.wikipedia.org/wiki/Distancia_euclidiana).
 
 **OBS:** Lamentablemente en el proyecto no consideramos una de las funcionalidades más potentes de Face-Recognition en su totalidad para el análisis, *face_encodings()*, que retorna una lista de vectores característicos asociados a todos los rostros en una imágen.  
-Es por ello que en términos prácticos y para la implementación, puesto que por lo general el dataset contiene solo un rostro, consideramos el primer rostro(vector) que se capta del *face_encodings()*. (Más detalles en la implementación). 
+Es por ello que en términos prácticos y para la implementación, puesto que por lo general el dataset contiene todos los rostros pero, la imagen original solo contiene el vector del primer rostro. 
 
 
 ## R-Tree
@@ -27,23 +27,29 @@ Una parte del proyecto es comparar estas dos estructuras a nivel temporal, entre
 #### KNN-Sequential
 En esta implementación se hace uso de un heap para mantener ordenada crecientemente las distancias, las distancias se proveen por face_recognition con face_distance, el cual devuelve un arreglo con las distancias a cada imagen del dataset.
 ```
-def KNN_Seq(k,to_search):  
-  result = PriorityQueue()
-  
-  
-  query = encode(to_search)
+def encode(name):
+  img = fr.load_image_file(path + '/' + name)
+  return fr.face_encodings(img)[0]
 
+def KNN_Seq(k,to_search,n):      
+  query = encode(to_search)
   cantidad = 0
   conocidas = []
   names_in_order = []
+  c = 0
   for file_name in pics_list:
     cantidad = cantidad +1
     print("Processing: ", file_name)
     img_fname = path + '/' + file_name
     img = fr.load_image_file(img_fname)
-    aux = fr.face_encodings(img)[0]
-    names_in_order.append(file_name)
-    conocidas.append(aux)
+    aux_c = fr.face_encodings(img)
+    for aux in aux_c:
+      names_in_order.append(file_name)
+      conocidas.append(aux)
+    c = c+1
+    if c==n:
+      break
+
 
   distances = fr.face_distance(conocidas,query)
   res = [] 
@@ -53,13 +59,15 @@ def KNN_Seq(k,to_search):
   heapq.heapify(res) 
 
   return heapq.nsmallest(k, res)
+ 
 
-
+print(KNN_Seq(8,"foto1.jpg",100))
 ```
+
 
 El costo del algoritmo es de:
 
-***O(t.n+ d.n + nlog(k))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar.
+***O(t.n.l+ d.n.l + nlog(k))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar l = cantidad de caras en la imagen.
 
 #### Comparativas
 La siguiente tabla muestra los tiempos para realizar las búsquedas por similitud, anteriormente descrita.
@@ -67,7 +75,9 @@ La siguiente tabla muestra los tiempos para realizar las búsquedas por similitu
 - Para todas las pruebas se tomaron los tiempos con K = 8. 
 - La plataforma y el hardware para la codificación de imágenes han sido dadas por [GoogleCoolab](https://colab.research.google.com/) para facilitar el trabajo grupal y por sus buenas specs de hardware. Es importante mencionar que debido a las limitaciones del GPU, la plataforma indica que la codificación sea dada en el GPU local(NVIDIA GTX 1660ti).  
 
+
 *Resultados obtenidos*
+
 | Tamaño(N) |    KNN - Rtree     |       KNN-Seq      |
 |-----------|:------------------:|:------------------:|
 |    100    |         110        |       4814800      |
@@ -78,11 +88,6 @@ La siguiente tabla muestra los tiempos para realizar las búsquedas por similitu
 |    3200   |                    |                    |
 |    6400   |                    |                    |
 |   12800   |                    |                    |
-
-
-
-
-
 
 
 
