@@ -101,6 +101,8 @@ La siguiente tabla muestra los tiempos para realizar las búsquedas por similitu
 ##### Análisis de los resultados
 Teóricamente, estimamos que las búsquedas en una estructura de árbol especializada en la indexación de acuerdo a las distancias debe ser más rápida que las realizas en una de búsqueda secuencial. Sin embargo, bajo el criterio de la [maldición de la alta dimensionalidad](https://bib.dbvis.de/uploadedFiles/190.pdf) que se basa en la naturaleza de la estructura del R-tree, la superposición de los cuadros delimitadores en el directorio, que aumenta con la dimensión creciente. 
 Es por ello que ya teníamos expectativas de la poca eficiencia al indexar vectores característico de alta dimensionalidad. Pese a ello, esto es notable solo en el valor base de la búsqueda de los 100 primeros, en la cuál supera en orden al de la búsqueda secuencial, no obstante, a medida que n va creciendo, se nota la diferencia entre el **crecimiento lineal** del secuencial y el **crecimiento logarítmico** del *R-tree* que en la entrada de 12800 ya no hay una diferencia de orden.
+
+
 ***Mitigación:*** 
 - La mitigación no fue mapeada en la implementación, pero una solución a esta puede ser reducir la dimensionalidad buscando características menos predominantes en la diferenciación de las imágenes y eliminarlas.
 - Otra solución, puede ser la indexación en un árbol [X-tree](https://bib.dbvis.de/uploadedFiles/190.pdf) que usa la superposición-minimización de división y supernodos para mantener la estructura lo más jerárquico posible y, al mismo tiempo, evitar divisiones en el nodo que darían como resultado una gran superposición.
