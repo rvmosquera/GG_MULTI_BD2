@@ -30,6 +30,9 @@ Una parte del proyecto es comparar estas dos estructuras a nivel temporal, entre
 #### KNN-RTREE
 
 
+El costo del algoritmo es de:
+***O(t.n.l+ d.n.l + n.log(s))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar l = cantidad de caras en la imagen s = es el tamaño del búfer de cada nodo del árbol.
+
 #### KNN-Sequential
 En esta implementación se hace uso de un heap para mantener ordenada crecientemente las distancias, las distancias se proveen por face_recognition con face_distance, el cual devuelve un arreglo con las distancias a cada imagen del dataset.
 ```
@@ -73,13 +76,14 @@ print(KNN_Seq(8,"foto1.jpg",100))
 
 El costo del algoritmo es de:
 
-***O(t.n.l+ d.n.l + nlog(k))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar l = cantidad de caras en la imagen.
+***O(t.n.l+ d.n.l + n.k.log(k))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar l = cantidad de caras en la imagen.
 
 #### Comparativas
 La siguiente tabla muestra los tiempos para realizar las búsquedas por similitud, anteriormente descrita.
 *Consideraciones:* 
 - Para todas las pruebas se tomaron los tiempos con K = 8. 
 - La plataforma y el hardware para la codificación de imágenes han sido dadas por [GoogleCoolab](https://colab.research.google.com/) para facilitar el trabajo grupal y por sus buenas specs de hardware. Es importante mencionar que debido a las limitaciones del GPU, la plataforma indica que la codificación sea dada en el GPU local(NVIDIA GTX 1660ti).  
+- Los tiempos fueron tomados después de hacer la indexación(en el R-tree) y después de realizar y calcular las distancias en la búsqueda secuencial.
 
 
 *Resultados obtenidos*
@@ -94,7 +98,12 @@ La siguiente tabla muestra los tiempos para realizar las búsquedas por similitu
 |    6400   |  0.033386171 | 0.009742670 |
 |   12800   |  0.056623063 | 0.019123669 |
 
-
+##### Análisis de los resultados
+Teóricamente, estimamos que las búsquedas en una estructura de árbol especializada en la indexación de acuerdo a las distancias debe ser más rápida que las realizas en una de búsqueda secuencial. Sin embargo, bajo el criterio de la [maldición de la alta dimensionalidad](https://bib.dbvis.de/uploadedFiles/190.pdf) que se basa en la naturaleza de la estructura del R-tree, la superposición de los cuadros delimitadores en el directorio, que aumenta con la dimensión creciente. 
+Es por ello que ya teníamos expectativas de la poca eficiencia al indexar vectores característico de alta dimensionalidad. Pese a ello, esto es notable solo en el valor base de la búsqueda de los 100 primeros, en la cuál supera en orden al de la búsqueda secuencial, no obstante, a medida que n va creciendo, se nota la diferencia entre el **crecimiento lineal** del secuencial y el **crecimiento logarítmico** del *R-tree* que en la entrada de 12800 ya no hay una diferencia de orden.
+***Mitigación:*** 
+- La mitigación no fue mapeada en la implementación, pero una solución a esta puede ser reducir la dimensionalidad buscando características menos predominantes en la diferenciación de las imágenes y eliminarlas.
+- Otra solución, puede ser la indexación en un árbol [X-tree](https://bib.dbvis.de/uploadedFiles/190.pdf) que usa la superposición-minimización de división y supernodos para mantener la estructura lo más jerárquico posible y, al mismo tiempo, evitar divisiones en el nodo que darían como resultado una gran superposición.
 
 
 ### Búsqueda por radio e implementación 
