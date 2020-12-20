@@ -8,7 +8,7 @@
                 <img src="{{ url_for('static', filename='img/face-detection.png') }}" alt="IMG">
             </div>
 
-            <form class="login100-form validate-form" method="POST" enctype="multipart/form-data" id="form">
+            <form class="login100-form validate-form" method="POST" enctype="multipart/form-data" id="form" action="{{ url_for('result') }}">
                 <span class="login100-form-title">
                    Reconocimiento Facial
                 </span>

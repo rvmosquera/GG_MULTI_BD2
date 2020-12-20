@@ -4,24 +4,19 @@
 <div align='center'>
     <h3 class="display-4">Resultados de la consulta</h3>
 </div>
-<div class="card">
-    <img class="card-img" src="{{ url_for('static', filename='img/gato.png') }}" alt="...">
-    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
-        <h5>#1-KNN</h5><h5>Gatito miau</h5>
-    </div>
-</div>
-<div class="card">
-    <img class="card-img" src="{{ url_for('static', filename='img/gato.png') }}" alt="...">
-    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
-        <h5>#2-KNN</h5><h5>Gatito miau</h5>
-    </div>
-</div>
-<div class="card">
-    <img class="card-img" src="{{ url_for('static', filename='img/gato.png') }}" alt="...">
-    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
-        <h5>#2-KNN</h5><h5>Gatito miau</h5>
-    </div>
-</div>
+{% set numero = namespace(value=1) %}
+{% for element in result %} 
 
+<div class="card">
+    {% set ruta = element['path'].split('/')[3]%}
+    {% set image_name = element['name'] %}
+
+    <img class="card-img" src="{{ url_for('show_image', filename=image_name,directorio=ruta) }}" alt="...">
+    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
+        <h5>#</h5>{{numero.value}}<h5></h5><h5>-KNN-</h5><h5>{{ruta}}</h5>
+    </div>
+</div>
+{% set numero.value=numero.value+1%}
+{% endfor %}
 
 {% endblock %}
