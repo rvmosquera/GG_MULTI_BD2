@@ -1,21 +1,18 @@
 {% extends "layout.html"%}
 {% block content %}
-
-<div align='center'>
-    <h3 class="display-4">Resultados de la consulta</h3>
+<div>
+    <h3 class="display-4">Resultados</h3>
 </div>
 {% set numero = namespace(value=1) %}
 {% for element in result %} 
-
-<div class="card">
+<div style="width:250px;display:inline-block;">
     {% set dist = element[0]%}
     {% set image_name = element[1].split('/')[-1]%}
     {% set ruta = element[1].split('/')[-2] %}
-
-    <img class="card-img" src="{{ url_for('show_image', filename=image_name,directorio=ruta) }}" alt="...">
-    <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
-        <h5>#</h5>{{numero.value}}<h5></h5><h5>-KNN-</h5><h5>{{ruta}}</h5>
-        <h5>  Semejanza: #</h5><h5>{{dist}}</h5>
+    <img class="" src="{{ url_for('show_image', filename=image_name,directorio=ruta) }}" >
+    <div class="">
+        <p>#{{numero.value}} -- {{ruta}}</p>
+        <p>Semejanza: {{dist}}</p>
     </div>
 </div>
 {% set numero.value=numero.value+1%}

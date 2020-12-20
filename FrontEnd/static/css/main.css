@@ -3532,3 +3532,16 @@ table.vmiddle>tbody>tr>td{
    .carga-archivo-input-title {
 	   margin-left:2px;
    }
+
+#contenedor{
+	text-align: center;
+}
+
+.imga1 {
+background-image: url(http://cdn2.hubspot.net/hubfs/763617/images/img-left.png?t=1466090614807);
+padding: 5px 10px 5px 10px;
+margin: 2px;
+display:inline-block;
+width: 200px;
+text-align: center;
+}

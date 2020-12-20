@@ -27,7 +27,7 @@
             <a class="nav-link" href="{{url_for('integrantes')}}">Integrantes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('result')}}">Resultado</a>
+            <a class="nav-link" href="{{url_for('capture')}}">Captura</a>
           </li>
         </form>
       </div>
@@ -36,11 +36,10 @@
 
 
     <!--Contenido-->
-    <div class="container p-4">
+    <div align="center">
         {% block content %}
         {% endblock %}
     </div>
-
     <!--Pie de Pagina-->
     <!-- Footer -->
     <footer class="page-footer font-small mdb-color darken-3 pt-4">
