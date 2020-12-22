@@ -28,10 +28,26 @@ La búsqueda KNN es aplicada en campos que utilizan espacios vectoriales de alta
 Una parte del proyecto es comparar estas dos estructuras a nivel temporal, entre el R-tree armado y con la búsqueda secuencial. 
 
 #### KNN-RTREE
-
-
 El costo del algoritmo es de:
-***O(t.n.l+ d.n.l + n.log(s))***, t = tiempo de la codificación d = tiempo de la obtención de las distancias k = cantidad de imágenes a retornar l = cantidad de caras en la imagen s = es el tamaño del búfer de cada nodo del árbol.
+***O(logM(N) + k.d)***, donde N es la cantidad de elementos en el Rtree (en este caso tuplas de las características de las imágenes) y un d, el cual corresponde el tiempo el vecino más cerano y K la cantidad de vecinos.
+```
+# Part of the code of KNN-Rtree
+# Extract vector characteristic from image
+  query = encode_for_r(to_search)
+
+  p = index.Property()
+  p.dimension = 128 #D
+  p.buffering_capacity = 10 #M
+  #idx = index.Index(rtree_name, properties=p)
+  rtreeidx = index.Rtree(rtree_name, properties=p)  
+  
+  query_list = list(query)
+  for query_i in query:
+    query_list.append(query_i)
+
+  start = timer() 
+  return rtreeidx.nearest(coordinates=query_list, num_results=k, objects='raw')
+```
 
 #### KNN-Sequential
 En esta implementación se hace uso de un heap para mantener ordenada crecientemente las distancias, las distancias se proveen por face_recognition con face_distance, el cual devuelve un arreglo con las distancias a cada imagen del dataset.
