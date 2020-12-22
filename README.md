@@ -49,7 +49,7 @@ El costo del algoritmo es de:
   return rtreeidx.nearest(coordinates=query_list, num_results=k, objects='raw')
 ```
 
-Nota: Aprovecha una de las ventajas del RTree y su almacenamiento en memoria secundaria se ejecutó previamente el procesamiento de las imágenes para almacenar dicho Rtree en memoria secundaria y poder ser consultado posteriormente.
+Nota: Para aprovechar una de las ventajas del RTree y su almacenamiento en memoria secundaria, se ejecutó previamente el procesamiento de las imágenes para almacenar dicho Rtree en memoria secundaria y poder ser consultado posteriormente. Aquí se muestra el código que procesa toda la colección de imágenes.
 
 ```
 def process_collection(rtree_name, n_images):
