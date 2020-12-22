@@ -49,6 +49,66 @@ El costo del algoritmo es de:
   return rtreeidx.nearest(coordinates=query_list, num_results=k, objects='raw')
 ```
 
+Nota: Aprovecha una de las ventajas del RTree y su almacenamiento en memoria secundaria se ejecutó previamente el procesamiento de las imágenes para almacenar dicho Rtree en memoria secundaria y poder ser consultado posteriormente.
+
+```
+def process_collection(rtree_name, n_images):
+  from rtree import index
+  import face_recognition
+  import os
+
+  #Traverse collection
+  path = "/tmp/lfw"
+  dir_list = os.listdir(path)
+
+  p = index.Property()
+  p.dimension = 128 #D
+  p.buffering_capacity = 10 #M
+  #p.dat_extension = 'data'
+  #p.idx_extension = 'index'
+  rtree_idx = index.Index(rtree_name, properties = p) #r-tree filename
+
+  index=0
+  break_fg = False
+  images_list = []
+  for file_path in dir_list:
+    path_tmp = path + "/" + file_path
+
+    img_list = os.listdir(path_tmp)
+    
+    for file_name in img_list: 
+      path_tmp2 = path_tmp + "/" + file_name
+#      print("Processing: ", path_tmp2)
+      img = face_recognition.load_image_file(path_tmp2)
+
+#     Get face encodings for any faces in the uploaded image
+      unknown_face_encodings = face_recognition.face_encodings(img)
+
+      for elem in unknown_face_encodings:
+
+        if index == n_images: #Process n_images 
+          break_fg = True
+          break
+
+        coor_tmp = list(elem)
+        for coor_i in elem:
+          coor_tmp.append(coor_i)
+        tmp_obj = {"path": path_tmp, "name": file_name};
+        rtree_idx.insert(index, coor_tmp, tmp_obj)
+        images_list.append((index, path_tmp2))
+        index = index + 1
+        
+      if break_fg:
+        break
+
+    if break_fg:
+      break    
+  rtree_idx.close()
+
+  print(str(index) + " images processed")
+  return rtree_idx
+```
+
 #### KNN-Sequential
 En esta implementación se hace uso de un heap para mantener ordenada crecientemente las distancias, las distancias se proveen por face_recognition con face_distance, el cual devuelve un arreglo con las distancias a cada imagen del dataset.
 ```
